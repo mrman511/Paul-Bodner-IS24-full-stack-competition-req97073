@@ -5,9 +5,9 @@ export default function ProductItem({ styles, product }){
   const parsedDevelopers = product.developers.map((developer, i) => {
     return (
       <Link 
-      href={ `developer/${developer.id}` } 
+      href={ `developer/${i}` } 
       key={ `product-${product.id}-developer-${i}` } >
-        <li>{ developer.name }</li>
+        <li>{ developer }</li>
       </Link>
     );
   })
@@ -15,9 +15,9 @@ export default function ProductItem({ styles, product }){
 
   return (
     <article className={ styles.card }>
-      <h2>{ product.productName }</h2>
-      <h3>owner: { product.productOwner }</h3>
-      <h3>scrum master: { product.scrumMasterName }</h3>
+      <h2>{ product.title }</h2>
+      <h3>owner: { product.owner }</h3>
+      <h3>scrum master: { product.scrum_aster }</h3>
       <div>
         <h4>Developers:</h4>
         <ul>
@@ -25,7 +25,7 @@ export default function ProductItem({ styles, product }){
         </ul>
       </div>
       <p>methodology: { product.methodology }</p>
-      <h4>{ product.startDate }</h4>
+      <h4>{ product.start_date }</h4>
     </article>
   );
 }

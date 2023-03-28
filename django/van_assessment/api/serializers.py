@@ -1,16 +1,16 @@
-from rest_framework import serializers
+# from rest_framework import serializers
 
-from products.models import Product
-from users.models import User
+# from products.models import Product
+# from developers.models import Developer
 
-class UserSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = User
-    fields = '__all__'
+# class DeveloperSerializer(serializers.ModelSerializer):
+#   class Meta:
+#     model = Developer
+#     fields = '__all__'
 
-class ProductSerializer(serializers.ModelSerializer):
-  developers = UserSerializer(read_only=True, many=True)
+# class ProductSerializer(serializers.ModelSerializer):
+#   developers = DeveloperSerializer(read_only=True, many=True)
 
-  class Meta:
-    model = Product
-    fields = '__all__'
+#   class Meta:
+#     model = Product
+#     fields = '__all__'

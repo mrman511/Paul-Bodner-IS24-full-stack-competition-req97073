@@ -7,7 +7,7 @@ from . import JSON
 
 # *** helper functions ***
 def returnId(item):
-  return item.id
+  return item['id']
 
 # *** API Docs ***
 
@@ -21,6 +21,14 @@ def getApiDocs(request):
 def getProducts(request):
   return Response(JSON.products)
 
+@api_view(['GET'])
+def getProduct(request, pk):
+  for product in JSON.products:
+    if product['id'] == int(pk):
+      return Response(product)
+  
+  return Response(status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 def saveProduct(request):
   data = request.data
@@ -32,15 +40,17 @@ def saveProduct(request):
 
 @api_view(['PUT'])
 def updateProduct(request, pk):
-  JSON.products = [ product for product in JSON.products if not product.id == int(pk) ]
+  JSON.products = [ product for product in JSON.products if not product['id'] == int(pk) ]
   JSON.products.append(request.data)
   JSON.products.sort(key=returnId)
-  return Response(status.HTTP_200_CREATED)
+  return Response(status.HTTP_200_OK)
 
 
 @api_view(['DELETE'])
 def deleteProduct(request, pk):
-  JSON.products = [ product for product in JSON.products if not product.id == int(pk) ]
+  print('JSONproducts:::', JSON.products)
+  print("PK::::: ", pk)
+  JSON.products = [ product for product in JSON.products if not product['id'] == int(pk) ]
   return Response(status.HTTP_200_OK)
 
 # *** Developer Views ***

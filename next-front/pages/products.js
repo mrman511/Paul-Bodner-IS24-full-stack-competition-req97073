@@ -7,13 +7,13 @@ import NavList from "@/components/navList";
 import ProductList from "@/components/products/productList";
 import styles from "../styles/Home.module.css";
 
+
 export default function Products({}){
   const [products, setProducts] = useState()
 
-
   useEffect(() => {
     if (!products){
-      getProducts(setProducts)
+      getProducts(setProducts, {})
     }
   })
 
@@ -30,7 +30,7 @@ export default function Products({}){
       </header>
       <main>
         <h3>Products</h3>
-        { products && <ProductList styles={ styles } products={ products }/> }
+        { products && <ProductList styles={ styles } products={ products } setProducts={ setProducts }/> }
       </main>
     </>
   );

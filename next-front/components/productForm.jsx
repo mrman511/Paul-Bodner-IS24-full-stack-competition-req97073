@@ -3,8 +3,8 @@ import saveProduct from "@/utils/saveProduct"
 import validate from "@/utils/validate"
 
 export default function ProductForm({ styles, developers , product }){
-  const [selectedDevelopers, setSelectedDevelopers]=useState(product?product.developers:[])
-  const [error, setError] = useState({})
+  const [selectedDevelopers, setSelectedDevelopers]=useState(product ? product.developers : []);
+  const [error, setError] = useState({});
 
   const parsedDevelopers = developers.map((developer, i) => {
     if (!selectedDevelopers.includes(developer)){
@@ -14,7 +14,7 @@ export default function ProductForm({ styles, developers , product }){
         </li>
       );
     }
-  })
+  });
 
   const parsedSelectedDevelopers = selectedDevelopers ? selectedDevelopers.map((developer, i) => {
     return (
@@ -22,59 +22,69 @@ export default function ProductForm({ styles, developers , product }){
         { developer }
       </li>
     );
-  }) : <></>
+  }) : <></> ;
 
   const addSelectedDeveloper = (e, name) => {
-    e.preventDefault()
+    e.preventDefault();
     if (selectedDevelopers.length < 5){
-      setSelectedDevelopers(prev => [...prev, name])
+      setSelectedDevelopers(prev => [...prev, name]);
     }
-  }
+  };
 
   const removeSelectedDeveloper = (e, name) => {
-    e.preventDefault()
+    e.preventDefault();
     setSelectedDevelopers(prev => {
-      return [...prev].filter(item => item != name)
+      return [...prev].filter(item => item != name);
     })
-  }
+  };
 
   const handleSubmit = (e) => {
-    if (!e.target.title.value){
-      setError({...error, title: 'Please enter a valid Title'})
+    e.preventDefault();
+    const errorObj = error;
+    // if (!e.target.title.value){
+    //   setError({...error, title: 'Please enter a valid Title'});
+    // } else {
+    //   setError({...error, title: undefined});
+    // }
+
+    // if (!e.target.owner.value){
+    //   setError({...error, owner: 'Please enter a valid Owner Name'});
+    // } else {
+    //   setError({...error, owner: undefined});
+    // }
+
+    // if (!e.target.scrum_master.value){
+    //   setError({...error, scrum_master: 'Please enter a valid Title'});
+    // } else {
+    //   setError({...error, scrum_master: undefined});
+    // }
+
+    if (selectedDevelopers.length === 0){
+      errorObj.min_devs= 'Please Select between 1 and 5 developers';
     } else {
-      setError({...error, title: undefined})
+      errorObj.min_devs = undefined;
     }
 
-    if (!e.target.owner.value){
-      setError({...error, owner: 'Please enter a valid Owner Name'})
-    } else {
-      setError({...error, owner: undefined})
-    }
-
-    if (!e.target.scrum_master.value){
-      setError({...error, scrum_master: 'Please enter a valid Title'})
-    } else {
-      setError({...error, scrum_master: undefined})
-    }
-
-    if (validate(error, ['max_devs'])){
+    if (validate(errorObj, ['max_devs'])){
       const productObj = {
         title: e.target.title.value,
         owner: e.target.owner.value,
-        scrum_mater: e.target.scrum_master.value,
-        methodology: e.target.methodology.value
-      }
-      saveProduct(productObj)
-      e.preventDefault()
+        scrum_master: e.target.scrum_master.value,
+        methodology: e.target.methodology.value,
+        developers: selectedDevelopers
+      };
+      saveProduct(productObj);
+    } else {
+      setError(errorObj)
     }
   }
 
   useEffect(() => {
     if (selectedDevelopers){
       if (!error.max_devs && selectedDevelopers.length === 5){
-        setError({...error, max_devs: 'Maximum number of 5 developers per project reached'})
+        setError({...error, max_devs: 'Maximum number of 5 developers per project reached'});
       } else if ( error.max_devs && selectedDevelopers.length < 5) {
-        setError({...error, max_devs: undefined})
+        setError({...error, max_devs: undefined});
       }
     }
   })
@@ -90,6 +100,7 @@ export default function ProductForm({ styles, developers , product }){
         <input type="text" id="owner" name='owner' defaultValue={'new project owner'} required/>
       </div>
       { error.max_devs && <p>{ error.max_devs }</p> }
+      { error.min_devs && <p>{ error.min_devs }</p> }
 
       <div className={ styles.developers }>
         <div>

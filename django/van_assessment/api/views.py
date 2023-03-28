@@ -9,3 +9,8 @@ def getProducts(request):
 @api_view(['GET'])
 def getDevelopers(request):
   return Response(developers)
+
+@api_view(['POST'])
+def saveProduct(request):
+  print(request.data)
+  return Response(developers)

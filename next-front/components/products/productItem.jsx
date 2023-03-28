@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function ProductItem({ styles, product }){
+
 
   const parsedDevelopers = product.developers.map((developer, i) => {
     return (
@@ -12,6 +14,9 @@ export default function ProductItem({ styles, product }){
     );
   })
   
+  useEffect(() => {
+    console.log('Product:::', product);
+  })
 
   return (
     <article className={ styles.card }>

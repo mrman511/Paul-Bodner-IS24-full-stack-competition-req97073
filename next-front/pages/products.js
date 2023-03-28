@@ -12,7 +12,9 @@ export default function Products({}){
 
 
   useEffect(() => {
-    getProducts(setProducts)
+    if (!products){
+      getProducts(setProducts)
+    }
   })
 
   return (

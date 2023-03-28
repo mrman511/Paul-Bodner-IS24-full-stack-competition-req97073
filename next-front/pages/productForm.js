@@ -1,18 +1,26 @@
+import { useRouter } from "next/router";
 import Head from "next/head";
 import getDevelopers from "@/utils/getDevelopers";
-
 import { useEffect, useState } from "react";
 
 import NavList from "@/components/navList";
-import ProductForm from "@/components/productForm";
+import ProductForm from "@/components/ProductForm";
 import styles from "../styles/Home.module.css";
+
+import getProducts from "@/utils/getProducts";
 
 export default function addProduct({}){
   const [developers, setDevelopers] = useState()
+  const [product, setProduct] = useState()
+  const router = useRouter();
   
   useEffect(() => {
     if (!developers){
       getDevelopers(setDevelopers)
+    }
+
+    if (router.query.id && !product){
+      getProducts(setProduct, { id: router.query.id })
     }
   })
 
@@ -29,7 +37,12 @@ export default function addProduct({}){
       </header>
       <main>
         <h3>Add Product</h3> 
-        { developers && <ProductForm styles={ styles } developers={ developers } setDevelopers ={ setDevelopers }/>}  
+        { developers && <ProductForm 
+          styles={ styles } 
+          developers={ developers } 
+          setDevelopers ={ setDevelopers }
+          product = { product }
+          />}  
       </main>
     </>
   );

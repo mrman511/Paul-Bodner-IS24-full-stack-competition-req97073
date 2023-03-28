@@ -66,14 +66,17 @@ export default function ProductForm({ styles, developers , product }){
     }
 
     if (validate(errorObj, ['max_devs'])){
+      console.log('PRODUCT_ID:::', product.id)
       const productObj = {
+        id: product ? product.id  : undefined,
+        start_date: product ? product.start_date  : undefined,
         title: e.target.title.value,
         owner: e.target.owner.value,
         scrum_master: e.target.scrum_master.value,
         methodology: e.target.methodology.value,
         developers: selectedDevelopers
       };
-      saveProduct(productObj);
+      saveProduct(productObj, { id: product.id });
     } else {
       setError(errorObj)
     }
@@ -93,11 +96,11 @@ export default function ProductForm({ styles, developers , product }){
     <form className={ styles.form } onSubmit={(e)=>{ handleSubmit(e) }}>
       <div>
         <label for="title">title: </label>
-        <input type="text" id="title" name='title' defaultValue={'new project'} required/>
+        <input type="text" id="title" name='title' defaultValue={ product ? product.title : '' } required/>
       </div>
       <div>
         <label for="owner">owner: </label>
-        <input type="text" id="owner" name='owner' defaultValue={'new project owner'} required/>
+        <input type="text" id="owner" name='owner' defaultValue={ product ? product.owner : '' } required/>
       </div>
       { error.max_devs && <p>{ error.max_devs }</p> }
       { error.min_devs && <p>{ error.min_devs }</p> }
@@ -119,11 +122,11 @@ export default function ProductForm({ styles, developers , product }){
 
       <div>
         <label for="scrum master">scrum master: </label>
-        <input type="text" id="scrum_master" name='scrum_master' defaultValue={'Todd'} required/>
+        <input type="text" id="scrum_master" name='scrum_master' defaultValue={ product ? product.scrum_master : '' } required/>
       </div>
       <div>
         <label for="methodology">methodology: </label>
-        <select id="methodology" name='methodology'>
+        <select id="methodology" name='methodology' defaultValue={ product ? product.methodology : '' }>
           <option value="Agile">Agile</option>
           <option value="Waterfall">Waterfall</option>
         </select>

@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { useEffect } from "react";
+import deleteProduct from "@/utils/deleteProduct";
 
-export default function ProductItem({ styles, product }){
-
-
+export default function ProductItem({ styles, product, setProducts }){
   const parsedDevelopers = product.developers.map((developer, i) => {
     return (
       <Link 
@@ -31,6 +30,8 @@ export default function ProductItem({ styles, product }){
       </div>
       <p>methodology: { product.methodology }</p>
       <h4>{ product.start_date }</h4>
+      <Link href={{ pathname: '/productForm', query: { id: product.id } }}><button >edit</button></Link>
+      <button onClick={() => { deleteProduct(product.id, setProducts) }} >delete</button>
     </article>
   );
 }

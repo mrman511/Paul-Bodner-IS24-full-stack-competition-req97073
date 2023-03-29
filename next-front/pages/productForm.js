@@ -10,11 +10,42 @@ import getDevelopers from "@/utils/getDevelopers";
 import getScrumMasters from "@/utils/getScrumMasters";
 import getProducts from "@/utils/getProducts";
 
+import saveProduct from "@/utils/saveProduct"
+import validate from "@/utils/validate"
+
 export default function addProduct({}){
-  const [developers, setDevelopers] = useState()
-  const [scrumMasters, setScrumMasters] = useState()
-  const [product, setProduct] = useState()
+  const [developers, setDevelopers] = useState();
+  const [scrumMasters, setScrumMasters] = useState();
+  const [product, setProduct] = useState();
+  const [error, setError] = useState({});
   const router = useRouter();
+
+  const handleSubmit = (e, selectedDevelopers) => {
+    e.preventDefault();
+    const errorObj = error;
+
+    if (selectedDevelopers.length === 0){
+      errorObj.min_devs= 'Please Select between 1 and 5 developers';
+    } else {
+      errorObj.min_devs = undefined;
+    }
+
+    if (validate(errorObj, ['max_devs'])){
+      const productObj = {
+        id: product ? product.id  : undefined,
+        start_date: product ? product.start_date  : undefined,
+        title: e.target.title.value,
+        owner: e.target.owner.value,
+        scrum_master: e.target.scrum_master.value,
+        methodology: e.target.methodology.value,
+        developers: selectedDevelopers
+      };
+
+      saveProduct(productObj, { id: productObj.id }, router);
+    } else {
+      setError(errorObj)
+    }
+  }
   
   useEffect(() => {
     if (!developers){
@@ -48,6 +79,8 @@ export default function addProduct({}){
           setDevelopers ={ setDevelopers }
           scrumMasters={ scrumMasters }
           product = { product }
+          error = { error }
+          handleSubmit = { handleSubmit }
           />}  
       </main>
     </>

@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react"
-import saveProduct from "@/utils/saveProduct"
-import validate from "@/utils/validate"
+
 
 import styles from "../../styles/Home.module.css";
 
-export default function ProductForm({ developers, scrumMasters, product }){
+export default function ProductForm({ developers, scrumMasters, product, handleSubmit, error }){
   const [selectedDevelopers, setSelectedDevelopers]=useState(product ? product.developers : []);
-  const [error, setError] = useState({});
+  
 
   const parsedDevelopers = developers.map((developer, i) => {
     if (!selectedDevelopers.includes(developer)){
@@ -32,6 +31,7 @@ export default function ProductForm({ developers, scrumMasters, product }){
     );
   }) : '';
 
+
   const addSelectedDeveloper = (e, name) => {
     e.preventDefault();
     if (selectedDevelopers.length < 5){
@@ -46,32 +46,7 @@ export default function ProductForm({ developers, scrumMasters, product }){
     })
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errorObj = error;
-
-    if (selectedDevelopers.length === 0){
-      errorObj.min_devs= 'Please Select between 1 and 5 developers';
-    } else {
-      errorObj.min_devs = undefined;
-    }
-
-    if (validate(errorObj, ['max_devs'])){
-      const productObj = {
-        id: product ? product.id  : undefined,
-        start_date: product ? product.start_date  : undefined,
-        title: e.target.title.value,
-        owner: e.target.owner.value,
-        scrum_master: e.target.scrum_master.value,
-        methodology: e.target.methodology.value,
-        developers: selectedDevelopers
-      };
-
-      saveProduct(productObj, { id: productObj.id });
-    } else {
-      setError(errorObj)
-    }
-  }
+  
 
   useEffect(() => {
     if (selectedDevelopers){
@@ -84,7 +59,7 @@ export default function ProductForm({ developers, scrumMasters, product }){
   })
 
   return (
-    <form className={ styles.form } onSubmit={(e)=>{ handleSubmit(e) }}>
+    <form className={ styles.form } onSubmit={(e)=>{ handleSubmit(e, selectedDevelopers) }}>
       <div>
         <label htmlFor="title">title: </label>
         <input type="text" id="title" name='title' defaultValue={ product ? product.title : '' } required/>

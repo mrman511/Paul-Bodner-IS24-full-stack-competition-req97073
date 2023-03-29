@@ -14,7 +14,8 @@ export default function ProductItem({ styles, product, setProducts }){
 
   return (
     <article className={ styles.card }>
-      <h2>{ product.title }</h2>
+      <h2 className={ styles.title }> { product.title }</h2>
+      <hr></hr>
       <h3>owner: { product.owner }</h3>
       <h3>scrum master: { product.scrum_master }</h3>
       <div>

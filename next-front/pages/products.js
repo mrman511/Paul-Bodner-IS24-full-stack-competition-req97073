@@ -1,5 +1,6 @@
 import Head from "next/head";
 import getProducts from "@/utils/getProducts";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 
@@ -25,11 +26,12 @@ export default function Products({}){
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header>
-        <NavList />
+      <header className={ styles.nav }>
+        <NavList className={ styles }/>
       </header>
       <main>
         <h3>Products</h3>
+        <Link href="/productForm"><button>Add New Product</button></Link>
         { products && <ProductList styles={ styles } products={ products } setProducts={ setProducts }/> }
       </main>
     </>

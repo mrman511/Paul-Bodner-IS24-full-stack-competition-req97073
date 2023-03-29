@@ -41,23 +41,6 @@ export default function ProductForm({ styles, developers , product }){
   const handleSubmit = (e) => {
     e.preventDefault();
     const errorObj = error;
-    // if (!e.target.title.value){
-    //   setError({...error, title: 'Please enter a valid Title'});
-    // } else {
-    //   setError({...error, title: undefined});
-    // }
-
-    // if (!e.target.owner.value){
-    //   setError({...error, owner: 'Please enter a valid Owner Name'});
-    // } else {
-    //   setError({...error, owner: undefined});
-    // }
-
-    // if (!e.target.scrum_master.value){
-    //   setError({...error, scrum_master: 'Please enter a valid Title'});
-    // } else {
-    //   setError({...error, scrum_master: undefined});
-    // }
 
     if (selectedDevelopers.length === 0){
       errorObj.min_devs= 'Please Select between 1 and 5 developers';
@@ -66,7 +49,6 @@ export default function ProductForm({ styles, developers , product }){
     }
 
     if (validate(errorObj, ['max_devs'])){
-      console.log('PRODUCT_ID:::', product.id)
       const productObj = {
         id: product ? product.id  : undefined,
         start_date: product ? product.start_date  : undefined,
@@ -76,7 +58,8 @@ export default function ProductForm({ styles, developers , product }){
         methodology: e.target.methodology.value,
         developers: selectedDevelopers
       };
-      saveProduct(productObj, { id: product.id });
+
+      saveProduct(productObj, { id: productObj.id });
     } else {
       setError(errorObj)
     }
@@ -95,11 +78,11 @@ export default function ProductForm({ styles, developers , product }){
   return (
     <form className={ styles.form } onSubmit={(e)=>{ handleSubmit(e) }}>
       <div>
-        <label for="title">title: </label>
+        <label htmlFor="title">title: </label>
         <input type="text" id="title" name='title' defaultValue={ product ? product.title : '' } required/>
       </div>
       <div>
-        <label for="owner">owner: </label>
+        <label htmlFor="owner">owner: </label>
         <input type="text" id="owner" name='owner' defaultValue={ product ? product.owner : '' } required/>
       </div>
       { error.max_devs && <p>{ error.max_devs }</p> }
@@ -121,11 +104,11 @@ export default function ProductForm({ styles, developers , product }){
       </div>
 
       <div>
-        <label for="scrum master">scrum master: </label>
+        <label htmlFor="scrum master">scrum master: </label>
         <input type="text" id="scrum_master" name='scrum_master' defaultValue={ product ? product.scrum_master : '' } required/>
       </div>
       <div>
-        <label for="methodology">methodology: </label>
+        <label htmlFor="methodology">methodology: </label>
         <select id="methodology" name='methodology' defaultValue={ product ? product.methodology : '' }>
           <option value="Agile">Agile</option>
           <option value="Waterfall">Waterfall</option>

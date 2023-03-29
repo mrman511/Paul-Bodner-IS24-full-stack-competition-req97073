@@ -59,6 +59,19 @@ def deleteProduct(request, pk):
 def getDevelopers(request):
   return Response(JSON.developers)
 
+@api_view(['GET'])
+def getDeveloper(request, name):
+  obj = {
+    'name': name,
+    'products': []
+  }
+  for product in JSON.products:
+    if name in product['developers']:
+      obj['products'].append(product)
+
+  return Response(obj)
+
+
 @api_view(['POST'])
 def saveDeveloper(request):
   JSON.developers.append(request.data.name)

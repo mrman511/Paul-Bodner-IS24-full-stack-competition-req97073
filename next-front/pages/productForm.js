@@ -16,12 +16,12 @@ export default function addProduct({}){
   
   useEffect(() => {
     if (!developers){
-      getDevelopers(setDevelopers)
+      getDevelopers(setDevelopers, {})
     }
 
     if (router.query.id && !product){
       getProducts(setProduct, { id: router.query.id })
-    }
+    } 
   })
 
   return (
@@ -32,8 +32,8 @@ export default function addProduct({}){
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header>
-        <NavList />
+      <header className={ styles.nav }>
+        <NavList className={ styles }/>
       </header>
       <main>
         <h3>Add Product</h3> 

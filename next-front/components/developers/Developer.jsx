@@ -6,7 +6,7 @@ export default function Developer({styles, developer}){
     <article>
       <h3>{ developer.name }</h3>
       <br />
-      <h5>Has worked on</h5>
+      <h5>Has worked on { developer.products.length } Products</h5>
       <ProductList styles={ styles } products={ developer.products } />
     </article>
   );

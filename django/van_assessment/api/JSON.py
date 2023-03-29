@@ -18,6 +18,15 @@ developers = [
   'Bobby'
 ]
 
+scrum_masters = {
+  'Jerry',
+  'Timone',
+  'Pumba',
+  'Susan',
+  'Amit',
+  'Tony'
+}
+
 products = [
   {
     'id': 1,

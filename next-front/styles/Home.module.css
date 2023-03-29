@@ -53,3 +53,6 @@
   border-radius: 8px;
 }
 
+.card div{
+  margin: .25em 0;
+}

@@ -14,4 +14,7 @@ urlpatterns = [
   path('developers/create/', views.saveDeveloper),
   path('developers/<str:name>/', views.getDeveloper),
   path('developers/<str:name>/delete/', views.removeDeveloper),
+
+  path('scrum_masters/', views.getScrumMasters),
+  path('scrum_masters/<str:name>', views.getScrumMaster),
 ]

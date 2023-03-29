@@ -12,5 +12,6 @@ urlpatterns = [
 
   path('developers/', views.getDevelopers),
   path('developers/create/', views.saveDeveloper),
+  path('developers/<str:name>/', views.getDeveloper),
   path('developers/<str:name>/delete/', views.removeDeveloper),
 ]

@@ -12,9 +12,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <article>
-          <NavList />
-        </article>
+        <header className={ styles.nav }>
+          <NavList className={ styles }/>
+        </header>
       </main>
     </>
   )

@@ -1,27 +1,22 @@
 import Link from "next/link";
-import { useEffect } from "react";
 import deleteProduct from "@/utils/deleteProduct";
 
 export default function ProductItem({ styles, product, setProducts }){
-  const parsedDevelopers = product.developers.map((developer, i) => {
+  const parsedDevelopers = product.developers.map((developer) => {
     return (
       <Link 
-      href={ `developer/${i}` } 
-      key={ `product-${product.id}-developer-${i}` } >
-        <li>{ developer }</li>
+      href={{pathname: '/developers', query: { name: developer }} }
+      key={ `product-${product.id}-developer-${developer}` } >
+        <li className={ styles.listLink }>{ developer }</li>
       </Link>
     );
-  })
-  
-  useEffect(() => {
-    console.log('Product:::', product);
   })
 
   return (
     <article className={ styles.card }>
       <h2>{ product.title }</h2>
       <h3>owner: { product.owner }</h3>
-      <h3>scrum master: { product.scrum_aster }</h3>
+      <h3>scrum master: { product.scrum_master }</h3>
       <div>
         <h4>Developers:</h4>
         <ul>

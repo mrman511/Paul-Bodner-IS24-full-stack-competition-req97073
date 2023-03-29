@@ -90,5 +90,7 @@ def getScrumMasters(request):
 def getScrumMaster(request, name):
   obj = {
     'name': name,
-    'products': [ product for product in JSON.products if product['scrum_master'] == name]
+    'products': [product for product in JSON.products if product['scrum_master'] == name]
   }
+
+  return Response(obj)

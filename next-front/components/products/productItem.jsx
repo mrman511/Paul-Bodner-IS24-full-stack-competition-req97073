@@ -16,8 +16,15 @@ export default function ProductItem({ styles, product, setProducts }){
     <article className={ styles.card }>
       <h2 className={ styles.title }> { product.title }</h2>
       <hr></hr>
-      <h3>owner: { product.owner }</h3>
-      <h3>scrum master: { product.scrum_master }</h3>
+      <div>
+        <h3>owner: { product.owner }</h3>
+      </div>
+      <div>
+        <h3>scrum master:</h3>
+        <Link href={{ pathname: '/scrumMasters', query: { name: product.scrum_master }}} className={ styles.listLink }>
+          { product.scrum_master }
+        </Link>
+      </div>
       <div>
         <h4>Developers:</h4>
         <ul>

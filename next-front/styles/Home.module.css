@@ -6,8 +6,14 @@
   margin: 2em;
 }
 
+.name{
+  font-size: 28px;
+  margin-top: .25em;
+}
+
 .nav{
   padding: 1em;
+  font-size: 18px;
   width: 100%
 }
 
@@ -57,5 +63,5 @@
 }
 
 .card div{
-  margin: .75em 0;
+  margin: .25em 0;
 }

@@ -11,7 +11,7 @@ import getDevelopers from "@/utils/getDevelopers";
 
 export default function Developers({}){
   const router = useRouter();
-  const { name } = router.query
+  const name = router.query.name;
   const [developer, setDeveloper] = useState();
   const [developers, setDevelopers] = useState();
  
@@ -19,13 +19,13 @@ export default function Developers({}){
   useEffect(() => {
     if (!developers && !name){
       getDevelopers(setDevelopers, {});
-    } else if (!developer && name){
+    } else if ((!developer && name) || (name && developer.name != name)){
       getDevelopers(setDeveloper, { name: name });
     }
      if ( !name && developer ){
        setDeveloper(undefined)
     }
-  }, [name, developer, developers])
+  }, [name, developer, developers, router.query.name])
 
   return (
     <>

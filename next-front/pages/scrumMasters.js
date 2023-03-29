@@ -19,13 +19,13 @@ export default function scrumMasters({}){
   useEffect(() => {
     if (!scrumMasters && !name){
       getScrumMasters(setScrumMasters, {});
-    } else if (!scrumMaster && name){
+    } else if ((!scrumMaster && name) || (name && scrumMaster.name != name)){
       getScrumMasters(setScrumMaster, { name: name });
     }
      if ( !name && scrumMaster ){
        setScrumMaster(undefined)
     }
-  }, [name, scrumMaster, scrumMasters])
+  }, [name, scrumMaster, scrumMasters, router.query.name])
 
   return (
     <>

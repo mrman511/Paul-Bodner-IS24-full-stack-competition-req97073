@@ -63,11 +63,8 @@ def getDevelopers(request):
 def getDeveloper(request, name):
   obj = {
     'name': name,
-    'products': []
+    'products': [product for product in JSON.products if name in product['developers']]
   }
-  for product in JSON.products:
-    if name in product['developers']:
-      obj['products'].append(product)
 
   return Response(obj)
 
@@ -81,3 +78,19 @@ def saveDeveloper(request):
 def removeDeveloper(request, name):
   JSON.developers.remove(name)
   return Response(status.HTTP_200_OK)
+
+
+#  *** Scrum Master views ***
+
+@api_view(['GET'])
+def getScrumMasters(request):
+  return Response(JSON.scrum_masters)
+
+@api_view(['GET'])
+def getScrumMaster(request, name):
+  obj = {
+    'name': name,
+    'products': [product for product in JSON.products if product['scrum_master'] == name]
+  }
+
+  return Response(obj)

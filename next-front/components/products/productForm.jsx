@@ -2,14 +2,16 @@ import { useState, useEffect } from "react"
 import saveProduct from "@/utils/saveProduct"
 import validate from "@/utils/validate"
 
-export default function ProductForm({ styles, developers , product }){
+import styles from "../../styles/Home.module.css";
+
+export default function ProductForm({ developers, scrumMasters, product }){
   const [selectedDevelopers, setSelectedDevelopers]=useState(product ? product.developers : []);
   const [error, setError] = useState({});
 
   const parsedDevelopers = developers.map((developer, i) => {
     if (!selectedDevelopers.includes(developer)){
       return (
-        <li key={ `developer${i}` } className={ styles.developer } onClick={(e) => { addSelectedDeveloper(e, developer ) }}>
+        <li key={ `developer${i}` } className={ [styles.developer, styles.listLink ].join(' ') } onClick={(e) => { addSelectedDeveloper(e, developer ) }}>
           { developer }
         </li>
       );
@@ -18,11 +20,17 @@ export default function ProductForm({ styles, developers , product }){
 
   const parsedSelectedDevelopers = selectedDevelopers ? selectedDevelopers.map((developer, i) => {
     return (
-      <li key={ `selecteddeveloper${i}` } className={ styles.developer } onClick={(e) => { removeSelectedDeveloper(e, developer ) }}>
+      <li key={ `selecteddeveloper${i}` } className={ [styles.developer, styles.listLink ].join(' ') } onClick={(e) => { removeSelectedDeveloper(e, developer ) }}>
         { developer }
       </li>
     );
   }) : <></> ;
+
+  const parsedScrumMasters = scrumMasters ? scrumMasters.map((name, i) => {
+    return (
+      <option key={ `scrumMaster${i}` } value={ name }>{ name }</option>
+    );
+  }) : '';
 
   const addSelectedDeveloper = (e, name) => {
     e.preventDefault();
@@ -105,7 +113,9 @@ export default function ProductForm({ styles, developers , product }){
 
       <div>
         <label htmlFor="scrum master">scrum master: </label>
-        <input type="text" id="scrum_master" name='scrum_master' defaultValue={ product ? product.scrum_master : '' } required/>
+        <select id="scrum_master" name='scrum_master' defaultValue={ product ? product.scrum_master : '' } required>
+          { parsedScrumMasters }
+        </select>
       </div>
       <div>
         <label htmlFor="methodology">methodology: </label>

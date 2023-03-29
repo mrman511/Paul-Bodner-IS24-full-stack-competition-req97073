@@ -7,25 +7,25 @@ import TeamList from "@/components/team/TeamList";
 import Individual from "@/components/team/Individual";
 import styles from "../styles/Home.module.css";
 
-import getDevelopers from "@/utils/getDevelopers";
+import getScrumMasters from "@/utils/getScrumMasters";
 
-export default function Developers({}){
+export default function scrumMasters({}){
   const router = useRouter();
   const { name } = router.query
-  const [developer, setDeveloper] = useState();
-  const [developers, setDevelopers] = useState();
+  const [scrumMaster, setScrumMaster] = useState();
+  const [scrumMasters, setScrumMasters] = useState();
  
 
   useEffect(() => {
-    if (!developers && !name){
-      getDevelopers(setDevelopers, {});
-    } else if (!developer && name){
-      getDevelopers(setDeveloper, { name: name });
+    if (!scrumMasters && !name){
+      getScrumMasters(setScrumMasters, {});
+    } else if (!scrumMaster && name){
+      getScrumMasters(setScrumMaster, { name: name });
     }
-     if ( !name && developer ){
-       setDeveloper(undefined)
+     if ( !name && scrumMaster ){
+       setScrumMaster(undefined)
     }
-  }, [name, developer, developers])
+  }, [name, scrumMaster, scrumMasters])
 
   return (
     <>
@@ -39,9 +39,9 @@ export default function Developers({}){
         <NavList styles={ styles } />
       </header>
       <main className={ styles.main }>
-        <h3>{ router.query.name ? 'Developer:' : 'Developers'}</h3>
-        { (developers && !developer) && <TeamList styles={ styles } individuals={ developers } path={ 'developers' }/> }
-        { developer && <Individual styles={ styles } individual={ developer }/>}
+        <h3>{ router.query.name ? 'Scrum Master:' : 'Scrum Masters:'}</h3>
+        { (scrumMasters && !scrumMaster) && <TeamList styles={ styles } individuals={ scrumMasters } path={ 'scrumMasters' }/> }
+        { scrumMaster && <Individual styles={ styles } individual={ scrumMaster }/>}
       </main>
     </>
   );

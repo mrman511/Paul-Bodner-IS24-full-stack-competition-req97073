@@ -9,6 +9,7 @@ developers.append('Paul Bodner')
 
 scrum_masters = [ fake.name() for x in range(6) ]
 
+# pick a random number (1-5) of random not repeated developers
 def getDevelopers():
   rand = random.randint(1, 5)
   randDevelopers = []
@@ -23,6 +24,23 @@ def getDevelopers():
 def getStartDate(product):
   return product['start_date']
 
+# creates a list of products
+
+def validateProduct(product):
+  if not product['developers'] or len(product["developers"]) < 1:
+    return {'is_valid': False, 'message': 'please select more at least one developer'}
+  if not product['title']:
+    return {'is_valid': False, 'message': 'Please add a title'}
+  if not product['owner']:
+    return {'is_valid': False, 'message': 'Please add as owner'}
+  if not product['scrum_master']:
+    return {'is_valid': False, 'message': 'Please add a scrum master'}
+  if not product['methodology']:
+    return {'is_valid': False, 'message': 'Please add a methodology'}
+    
+  return { 'is_valid': True, }
+
+
 products = [
   {
     'title': fake.sentence(),
@@ -36,5 +54,9 @@ products = [
 
 products.sort(key=getStartDate)
 
+
+# giv all products a unique id
+idNum = 0
 for i in range(len(products)):
-  products[i]['id'] = i+1
+  idNum += 1
+  products[i]['id'] = idNum

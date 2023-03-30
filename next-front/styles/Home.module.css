@@ -38,6 +38,9 @@
   margin: 0 .5em;
 }
 
+.error{
+  color: red;
+}
 
 .listLink:hover{
   background-color: blue;

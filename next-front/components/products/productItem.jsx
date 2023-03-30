@@ -31,7 +31,9 @@ export default function ProductItem({ styles, product, setProducts }){
           { parsedDevelopers }
         </ul>
       </div>
-      <p>methodology: { product.methodology }</p>
+      <div>
+        <p>methodology: { product.methodology }</p>
+      </div>
       <h4>{ product.start_date }</h4>
       <Link href={{ pathname: '/productForm', query: { id: product.id } }}><button >edit</button></Link>
       <button onClick={() => { deleteProduct(product.id, setProducts) }} >delete</button>

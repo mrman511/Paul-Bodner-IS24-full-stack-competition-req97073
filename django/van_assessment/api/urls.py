@@ -5,6 +5,7 @@ from . import views
 from rest_framework.schemas import get_schema_view
 
 urlpatterns = [
+  # swagger doc api routes
   path('swagger-json/', 
     get_schema_view(
       title='Vancouver Assessment Project API Doc', 
@@ -19,6 +20,8 @@ urlpatterns = [
     ), name='api_docs'
   ),
   
+  # api routes
+
   path('products/', views.getProducts),
   path('products/create/', views.saveProduct),
   path('products/<str:pk>/', views.getProduct),

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 
 import styles from "../../styles/Home.module.css";
 
-export default function ProductForm({ developers, scrumMasters, product, handleSubmit, error }){
+export default function ProductForm({ developers, scrumMasters, product, handleSubmit, error, setError }){
   const [selectedDevelopers, setSelectedDevelopers]=useState(product ? product.developers : []);
   
 
@@ -68,8 +68,8 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
         <label htmlFor="owner">owner: </label>
         <input type="text" id="owner" name='owner' defaultValue={ product ? product.owner : '' } required/>
       </div>
-      { error.max_devs && <p>{ error.max_devs }</p> }
-      { error.min_devs && <p>{ error.min_devs }</p> }
+      { error.max_devs && <p className={ styles.error }>{ error.max_devs }</p> }
+      { error.min_devs && <p className={ styles.error }>{ error.min_devs }</p> }
 
       <div className={ styles.developers }>
         <div>
@@ -80,6 +80,7 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
         </div>
         <div>
           <h3>SelectedDevelopers</h3>
+          <p>Max 5</p>
           <ul>
             { parsedSelectedDevelopers }
           </ul>

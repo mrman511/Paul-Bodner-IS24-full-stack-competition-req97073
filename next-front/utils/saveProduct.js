@@ -6,7 +6,7 @@ export default async function saveProduct(productObj, { id }, router){
   } else {
     res = await axios.put(`http://localhost:3000/api/products/${id}/update/`, productObj)
   }
-  if (res.status === 200){
+  if (!res.data.message){
     router.push('/products')
-  }
+  } 
 }

@@ -22,15 +22,15 @@ export default function addProduct({}){
 
   const handleSubmit = (e, selectedDevelopers) => {
     e.preventDefault();
-    const errorObj = error;
+    // const errorObj = error;
 
     if (selectedDevelopers.length === 0){
-      errorObj.min_devs= 'Please Select between 1 and 5 developers';
+      setError({ ...error, "min_devs": 'Please Select between 1 and 5 developers' })
     } else {
-      errorObj.min_devs = undefined;
+      setError({ ...error, "min_devs": undefined})
     }
 
-    if (validate(errorObj, ['max_devs'])){
+    if (validate(error, ['max_devs'])){
       const productObj = {
         id: product ? product.id  : undefined,
         start_date: product ? product.start_date  : undefined,
@@ -42,12 +42,11 @@ export default function addProduct({}){
       };
 
       saveProduct(productObj, { id: productObj.id }, router);
-    } else {
-      setError(errorObj)
-    }
+    } 
   }
   
   useEffect(() => {
+    console.log('ERROR OBJ::', error )
     if (!developers){
       getDevelopers(setDevelopers, {})
     }
@@ -59,7 +58,7 @@ export default function addProduct({}){
     if (router.query.id && !product){
       getProducts(setProduct, { id: router.query.id })
     } 
-  })
+  }, [setError, developers, product, router.query.id])
 
   return (
     <>
@@ -80,6 +79,7 @@ export default function addProduct({}){
           scrumMasters={ scrumMasters }
           product = { product }
           error = { error }
+          setError = { setError }
           handleSubmit = { handleSubmit }
           />}  
       </main>

@@ -1,8 +1,12 @@
+import json
+from django.http import HttpResponseBadRequest
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from datetime import datetime
 from . import JSON
+
+
 # Create your views here.
 
 # *** helper functions ***
@@ -31,8 +35,16 @@ def getProduct(request, pk):
 
 @api_view(['POST'])
 def saveProduct(request):
+
+  # validate POST request
+  validation = JSON.validateProduct(request.data)
+
+  if not validation['is_valid']:
+    return Response(validation)
+
   data = request.data
-  data['id'] = JSON.products[-1]['id'] + 1
+  JSON.idNum += 1
+  data['id'] = JSON.idNum
   data['start_date'] = datetime.today().strftime('%Y-%m-%d')
 
   JSON.products.append(data)
@@ -40,6 +52,11 @@ def saveProduct(request):
 
 @api_view(['PUT'])
 def updateProduct(request, pk):
+  validation = JSON.validateProduct(request.data)
+
+  if not validation['is_valid']:
+    return Response(validation)
+
   JSON.products = [ product for product in JSON.products if not product['id'] == int(pk) ]
   JSON.products.append(request.data)
   JSON.products.sort(key=returnId)

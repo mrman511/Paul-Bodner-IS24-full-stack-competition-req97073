@@ -13,7 +13,12 @@ import getProducts from "@/utils/getProducts";
 import saveProduct from "@/utils/saveProduct"
 import validate from "@/utils/validate"
 
+import "react-datepicker/dist/react-datepicker.css";
+
 export default function addProduct({}){
+  const today = new Date()
+
+  const [startDate, setStartDate] = useState(today);
   const [developers, setDevelopers] = useState();
   const [scrumMasters, setScrumMasters] = useState();
   const [product, setProduct] = useState();
@@ -22,7 +27,6 @@ export default function addProduct({}){
 
   const handleSubmit = (e, selectedDevelopers) => {
     e.preventDefault();
-    // const errorObj = error;
 
     if (selectedDevelopers.length === 0){
       setError({ ...error, "min_devs": 'Please Select between 1 and 5 developers' })
@@ -38,7 +42,8 @@ export default function addProduct({}){
         owner: e.target.owner.value,
         scrum_master: e.target.scrum_master.value,
         methodology: e.target.methodology.value,
-        developers: selectedDevelopers
+        developers: selectedDevelopers,
+        start_date: startDate,
       };
 
       saveProduct(productObj, { id: productObj.id }, router);
@@ -46,7 +51,6 @@ export default function addProduct({}){
   }
   
   useEffect(() => {
-    console.log('ERROR OBJ::', error )
     if (!developers){
       getDevelopers(setDevelopers, {})
     }
@@ -58,6 +62,12 @@ export default function addProduct({}){
     if (router.query.id && !product){
       getProducts(setProduct, { id: router.query.id })
     } 
+
+    if (product && startDate != product.startDate){
+      const date = new Date(product.start_date)
+      setStartDate(date)
+    }
+
   }, [setError, developers, product, router.query.id])
 
   return (
@@ -81,6 +91,8 @@ export default function addProduct({}){
           error = { error }
           setError = { setError }
           handleSubmit = { handleSubmit }
+          startDate = { startDate }
+          setStartDate = { setStartDate }
           />}  
       </main>
     </>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
+import DatePicker from "react-datepicker";
 
 
 import styles from "../../styles/Home.module.css";
 
-export default function ProductForm({ developers, scrumMasters, product, handleSubmit, error, setError }){
+export default function ProductForm({ developers, scrumMasters, product, handleSubmit, error, setError, startDate, setStartDate }){
   const [selectedDevelopers, setSelectedDevelopers]=useState(product ? product.developers : []);
-  
 
   const parsedDevelopers = developers.map((developer, i) => {
     if (!selectedDevelopers.includes(developer)){
@@ -99,6 +99,10 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
           <option value="Agile">Agile</option>
           <option value="Waterfall">Waterfall</option>
         </select>
+      </div>
+      <div>
+        <p>Start Date:</p>
+        <DatePicker selected={ startDate } onChange={ (date)=>{ setStartDate(date) } }/>
       </div>
       <input type="submit" value="Submit" />
     </form>

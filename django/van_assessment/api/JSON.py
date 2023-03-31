@@ -49,7 +49,7 @@ products = [
     'scrum_master': scrum_masters[random.randint(0, (len(scrum_masters) - 1 ))],
     'start_date':  fake.date_between(start_date='-2y', end_date='today'),
     'methodology': 'Agile' if bool(random.getrandbits(1)) else 'Waterfall'
-  } for x in range(40)
+  } for x in range(20)
 ]
 
 products.sort(key=getStartDate)

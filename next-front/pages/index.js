@@ -1,5 +1,7 @@
-import Head from 'next/head'
-import NavList from '@/components/NavList'
+import Head from 'next/head';
+import NavList from '@/components/NavList';
+
+import styles from '../styles/Home.module.css';
 
 
 export default function Home() {

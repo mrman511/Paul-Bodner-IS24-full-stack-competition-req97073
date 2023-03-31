@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import NavList from "@/components/navList";
 import ProductList from "@/components/products/productList";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 
 
 export default function Products({}){
@@ -31,8 +31,11 @@ export default function Products({}){
       </header>
       <main>
         <h3>Products</h3>
-        <Link href="/productForm"><button>Add New Product</button></Link>
-        { products && <ProductList styles={ styles } products={ products } setProducts={ setProducts }/> }
+        <Link href="/products/productForm"><button>Add New Product</button></Link>
+        { products && <>
+          <div><h4>Total Number of Products: { products.length }</h4></div>
+          <ProductList styles={ styles } products={ products } setProducts={ setProducts }/>
+        </>}
       </main>
     </>
   );

@@ -11,8 +11,11 @@ export default function ProductList({ styles, products, setProducts}){
   });
 
   return(
+    <>
+    <div><h4>Total Number of Products: { parsedProducts.length }</h4></div>
     <section className={ styles.list }>
       { parsedProducts }
     </section>
+    </>
   );
 }

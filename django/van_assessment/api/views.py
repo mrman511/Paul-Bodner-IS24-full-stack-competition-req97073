@@ -45,7 +45,7 @@ def saveProduct(request):
   data = request.data
   JSON.idNum += 1
   data['id'] = JSON.idNum
-  data['start_date'] = datetime.today().strftime('%Y-%m-%d')
+  # data['start_date'] = datetime.today().strftime('%Y-%m-%d')
 
   JSON.products.append(data)
   return Response(status.HTTP_201_CREATED)

@@ -7,7 +7,7 @@ export default function Individual({styles, individual}){
     <article>
       <h3 className={ styles.name }>{ individual.name }</h3>
       <br />
-      <h5>Has worked on { individual.products.length } Products</h5>
+      <h4>Has worked on { individual.products.length } Products</h4>
       <ProductList styles={ styles } products={ individual.products } />
     </article>
   );

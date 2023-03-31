@@ -17,7 +17,7 @@ export default function ProductItem({ styles, product, setProducts }){
   return (
     <article className={ styles.card }>
       <div>
-        <p>ID: {product.id}</p>
+        <p>Product Number: {product.id}</p>
       </div>
       <h2 className={ styles.title }>Title: { product.title }</h2>
       <hr></hr>
@@ -40,7 +40,7 @@ export default function ProductItem({ styles, product, setProducts }){
         <p>methodology: { product.methodology }</p>
       </div>
       <h4>Start Date: { `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}` }</h4>
-      <Link href={{ pathname: '/productForm', query: { id: product.id } }}><button >edit</button></Link>
+      <Link href={{ pathname: '/products/productForm', query: { id: product.id } }}><button >edit</button></Link>
       <button onClick={() => { deleteProduct(product.id, setProducts) }} >delete</button>
     </article>
   );

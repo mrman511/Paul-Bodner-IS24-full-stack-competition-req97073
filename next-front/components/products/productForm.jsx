@@ -7,6 +7,7 @@ import styles from "../../styles/Home.module.css";
 export default function ProductForm({ developers, scrumMasters, product, handleSubmit, error, setError, startDate, setStartDate }){
   const [selectedDevelopers, setSelectedDevelopers]=useState(product ? product.developers : []);
 
+  //list item components for developers to be selected
   const parsedDevelopers = developers.map((developer, i) => {
     if (!selectedDevelopers.includes(developer)){
       return (
@@ -16,7 +17,7 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
       );
     }
   });
-
+  //list item components for selected developrs
   const parsedSelectedDevelopers = selectedDevelopers ? selectedDevelopers.map((developer, i) => {
     return (
       <li key={ `selecteddeveloper${i}` } className={ [styles.developer, styles.listLink ].join(' ') } onClick={(e) => { removeSelectedDeveloper(e, developer ) }}>
@@ -25,6 +26,7 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
     );
   }) : <></> ;
 
+  //option components for scrum_masters
   const parsedScrumMasters = scrumMasters ? scrumMasters.map((name, i) => {
     return (
       <option key={ `scrumMaster${i}` } value={ name }>{ name }</option>
@@ -49,6 +51,7 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
   
 
   useEffect(() => {
+    //set and remove error for max devs reached
     if (selectedDevelopers){
       if (!error.max_devs && selectedDevelopers.length === 5){
         setError({...error, max_devs: 'Maximum number of 5 developers per project reached'});
@@ -74,13 +77,14 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
       <div className={ styles.developers }>
         <div>
           <h3>Developers</h3>
+          <p><strong>(1-5 Developers)</strong></p>
           <ul>
             { parsedDevelopers }
           </ul>
         </div>
         <div>
           <h3>SelectedDevelopers</h3>
-          <p>Max 5</p>
+          <p><strong>(Max 5 Developers)</strong></p>
           <ul>
             { parsedSelectedDevelopers }
           </ul>
@@ -100,10 +104,11 @@ export default function ProductForm({ developers, scrumMasters, product, handleS
           <option value="Waterfall">Waterfall</option>
         </select>
       </div>
-      <div>
+       <div>
         <p>Start Date:</p>
-        <DatePicker selected={ startDate } onChange={ (date)=>{ setStartDate(date) } }/>
-      </div>
+       { !product && <DatePicker selected={ startDate } onChange={ (date)=>{ setStartDate(date) } }/> }
+       { product && <p>{ `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}` }</p> }
+      </div> 
       <input type="submit" value="Submit" />
     </form>
   );

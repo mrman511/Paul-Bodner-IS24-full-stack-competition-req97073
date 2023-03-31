@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import NavList from "@/components/navList";
 import ProductForm from "@/components/products/productForm";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 import getDevelopers from "@/utils/getDevelopers";
 import getScrumMasters from "@/utils/getScrumMasters";
@@ -13,7 +14,6 @@ import getProducts from "@/utils/getProducts";
 import saveProduct from "@/utils/saveProduct"
 import validate from "@/utils/validate"
 
-import "react-datepicker/dist/react-datepicker.css";
 
 export default function addProduct({}){
   const today = new Date()

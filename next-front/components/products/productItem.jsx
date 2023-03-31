@@ -2,6 +2,8 @@ import Link from "next/link";
 import deleteProduct from "@/utils/deleteProduct";
 
 export default function ProductItem({ styles, product, setProducts }){
+  const startDate = new Date(product.start_date);
+
   const parsedDevelopers = product.developers.map((developer) => {
     return (
       <Link 
@@ -37,7 +39,7 @@ export default function ProductItem({ styles, product, setProducts }){
       <div>
         <p>methodology: { product.methodology }</p>
       </div>
-      <h4>{ product.start_date }</h4>
+      <h4>Start Date: { `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}` }</h4>
       <Link href={{ pathname: '/productForm', query: { id: product.id } }}><button >edit</button></Link>
       <button onClick={() => { deleteProduct(product.id, setProducts) }} >delete</button>
     </article>
